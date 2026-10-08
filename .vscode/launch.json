@@ -1,0 +1,30 @@
+{
+    "version": "1.0.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "MouseionServiceApplication",
+            "request": "launch",
+            "mainClass": "com.reverseosmosis.demo.MouseionServiceApplication",
+            "projectName": "demo-mouseion-service"
+        },
+        {
+            "type": "java",
+            "name": "mouseion [H2]",
+            "request": "launch",
+            "mainClass": "com.reverseosmosis.mouseionservice.MouseionServiceApplication",
+            "projectName": "demo-mouseion-service",
+            "noDebug": true,
+            "vmArgs": "-Dspring.profiles.active=mariadb"
+        },
+        {
+            "type": "java",
+            "name": "mouseion [MariaDB]",
+            "request": "launch",
+            "mainClass": "com.reverseosmosis.mouseionservice.MouseionServiceApplication",
+            "projectName": "demo-mouseion-service",
+            "noDebug": true,
+            "vmArgs": "-Dspring.profiles.active=mariadb"
+        }
+    ]
+}
