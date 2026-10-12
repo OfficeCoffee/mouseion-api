@@ -1,29 +1,25 @@
-package main.java.com.reverseosmosis.demo.model;
+package com.reverseosmosis.demo.model;
 
-import java.lang.annotation.Inherited;
 import java.time.Instant;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-
-
-
-
+import jakarta.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
 
 @Data
 @Entity
 @Table(name = "words")
 public class words {
     
-    @Inherited 
+    @Id
     @Column(name = "word_id", nullable = false)
-    @GerativeValue(strategy = GenerationType.IDENTITY)
-    MediumInteger word_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer word_id;
 
     @Column(name = "word", length = 50, nullable = false)
     String word;
@@ -35,9 +31,7 @@ public class words {
     String definition;
 
     @Column(name = "created_at", nullable = false)
-    @CreationTimeStamp(source = SourceType.DATABASE) //datetime datatype?
+    @CreationTimestamp(source = SourceType.DB) //datetime datatype?
     Instant created_at;
-
-
 
 }
