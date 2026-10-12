@@ -5,6 +5,20 @@
             "type": "java",
             "name": "MouseionServiceApplication",
             "request": "launch",
+            "mainClass": "com.reverseosmosis.mouseion.MouseionServiceApplication",
+            "projectName": "mouseion-api"
+        },
+        {
+            "type": "java",
+            "name": "MouseionServiceApplication",
+            "request": "launch",
+            "mainClass": "com.reverseosmosis.demo.MouseionServiceApplication",
+            "projectName": "mouseion-api"
+        },
+        {
+            "type": "java",
+            "name": "MouseionServiceApplication",
+            "request": "launch",
             "mainClass": "com.reverseosmosis.demo.MouseionServiceApplication",
             "projectName": "demo-mouseion-service"
         },
