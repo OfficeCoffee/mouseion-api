@@ -28,5 +28,5 @@ private String deck_name;
 
 @Column(name = "created_at", nullable = false, updatable = false)
 @CreationTimestamp(source = SourceType.DB)
-Instant dateAdded;
+private Instant dateAdded;
 }
