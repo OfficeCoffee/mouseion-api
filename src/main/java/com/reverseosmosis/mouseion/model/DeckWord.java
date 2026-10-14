@@ -18,12 +18,12 @@ public class DeckWord {
     @EmbeddedId 
     private DeckWordId id;
 
-    @JoinColumn(name = "deck_id")
+    @JoinColumn(name = "deck_id", nullable = false)
     @ManyToOne
     @MapsId("deck_id")
     private Decks deck;
 
-    @JoinColumn(name = "word_id")
+    @JoinColumn(name = "word_id", nullable = false)
     @ManyToOne
     @MapsId("word_id")
     private Words word;
