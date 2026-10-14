@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DecksRepository extends JpaRepository<Decks, Integer> {}
+public interface DecksRepository extends JpaRepository<Decks, Integer> {
+  // Optional<List<Decks>> findByDeckName(String deckName);
+}
