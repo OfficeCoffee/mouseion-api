@@ -1,4 +1,5 @@
 package com.reverseosmosis.mouseion.controller;
+
 import com.reverseosmosis.mouseion.dto.WordsDto;
 import com.reverseosmosis.mouseion.service.WordsService;
 import jakarta.persistence.EntityNotFoundException;
