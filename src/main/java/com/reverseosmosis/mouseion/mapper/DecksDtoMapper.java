@@ -7,13 +7,15 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring",
+@Mapper(
+    componentModel = "spring",
     uses = {DecksService.class})
-public interface DecksDtoMapper { // (optional) Has compile problem. Service runs but Decks isn't recognized 
-    
-    Decks toEntity(DecksDto decksDto) throws EntityNotFoundException;
+public interface DecksDtoMapper {
 
-    DecksDto toDto(Decks decks) throws EntityNotFoundException;
+  Decks toEntity(DecksDto decksDto) throws EntityNotFoundException;
 
-    List<DecksDto> toDtoList(List<Decks> decksList) throws EntityNotFoundException; // Assumes user will see list of decks
+  DecksDto toDto(Decks decks) throws EntityNotFoundException;
+
+  List<DecksDto> toDtoList(List<Decks> decksList)
+      throws EntityNotFoundException; // Assumes user will see list of decks
 }

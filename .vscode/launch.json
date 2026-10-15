@@ -17,21 +17,11 @@
         },
         {
             "type": "java",
-            "name": "mouseion [H2]",
+            "name": "mouseion [test]",
             "request": "launch",
             "mainClass": "com.reverseosmosis.mouseionservice.MouseionServiceApplication",
             "projectName": "demo-mouseion-service",
-            "noDebug": true,
-            "vmArgs": "-Dspring.profiles.active=mariadb"
-        },
-        {
-            "type": "java",
-            "name": "mouseion [MariaDB]",
-            "request": "launch",
-            "mainClass": "com.reverseosmosis.mouseionservice.MouseionServiceApplication",
-            "projectName": "demo-mouseion-service",
-            "noDebug": true,
-            "vmArgs": "-Dspring.profiles.active=mariadb"
+            "noDebug": true
         }
     ]
 }
