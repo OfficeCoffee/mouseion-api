@@ -24,7 +24,7 @@ public class DecksService { // Problem with syntax + .findAll initially not foun
 
   public Decks getDecksByName(String name) throws EntityNotFoundException {
     return decksRepository
-        .findByDecksName(name)
+        .findByDeckName(name)
         .orElseThrow(() -> new EntityNotFoundException("Deck " + name + " not found"));
   }
 
