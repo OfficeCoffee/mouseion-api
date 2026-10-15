@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface WordsRepo extends JpaRepository<Words, Integer> {
 
   @Query(
-      value = "SELECT word, origin, definition FROM words w WHERE w.word = ?1",
+      value = "SELECT word, origin, definition, created_at FROM words w WHERE w.word = ?1",
       nativeQuery = true)
   Optional<Words> findByWord(String word);
 }

@@ -1,6 +1,7 @@
 package com.reverseosmosis.mouseion.controller;
 
 import com.reverseosmosis.mouseion.dto.WordsDto;
+import com.reverseosmosis.mouseion.model.Words;
 import com.reverseosmosis.mouseion.mapper.WordsMapper;
 import com.reverseosmosis.mouseion.service.WordsService;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "student", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "words", produces = MediaType.APPLICATION_JSON_VALUE)
 public class WordsController {
 
   private final WordsMapper wordsMapper;
@@ -24,19 +25,27 @@ public class WordsController {
 
   // Find all entities
   @GetMapping
-  ResponseEntity<List<WordsDto>> getAllStudents() {
+  ResponseEntity<List<WordsDto>> getAllWords() {
+    List<Words> test = wordService.getAllWords();
+    System.out.println(test);
     return new ResponseEntity<>(wordsMapper.toDtoList(wordService.getAllWords()), HttpStatus.OK);
   }
 
   // Find entity by id
-  @GetMapping(path = "{id}")
+  @GetMapping(path = "/id/{id}")
   ResponseEntity<WordsDto> getWordById(@PathVariable Integer id) throws EntityNotFoundException {
     return new ResponseEntity<>(wordsMapper.toDto(wordService.getWordById(id)), HttpStatus.OK);
   }
 
   // Find entity by search string (similar to finding Student by firstName in the overview)
-  @GetMapping(path = "{name}")
+  @GetMapping(path = "/name/{name}")
   ResponseEntity<WordsDto> getWordByName(@PathVariable String name) throws EntityNotFoundException {
     return new ResponseEntity<>(wordsMapper.toDto(wordService.getWordByName(name)), HttpStatus.OK);
+  }
+
+   // Testing method to make sure the connection is working
+  @GetMapping("/test")
+  public String test() {
+    return "Rose was here :D";
   }
 }
