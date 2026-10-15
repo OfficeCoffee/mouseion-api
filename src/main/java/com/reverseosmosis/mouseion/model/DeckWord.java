@@ -14,17 +14,16 @@ import lombok.Data;
 @Entity 
 @Table(name = "deck_word")
 public class DeckWord {
-
     @EmbeddedId 
     private DeckWordId id;
 
     @JoinColumn(name = "deck_id", nullable = false)
     @ManyToOne
-    @MapsId("deck_id")
+    @MapsId("deckId")
     private Decks deck;
 
     @JoinColumn(name = "word_id", nullable = false)
     @ManyToOne
-    @MapsId("word_id")
+    @MapsId("wordId")
     private Words word;
 }
