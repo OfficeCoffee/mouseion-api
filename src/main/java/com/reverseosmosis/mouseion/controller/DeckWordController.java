@@ -40,4 +40,10 @@ public class DeckWordController {
     return new ResponseEntity<>(
         deckWordDtoMapper.toDto(deckWordService.getWordByDeckId(deckId, wordId)), HttpStatus.OK);
   }
+
+  // Testing method to make sure the connection is working
+  // @GetMapping("/test")
+  // public String test() {
+  //   return "Rose was here :D";
+  // }
 }
