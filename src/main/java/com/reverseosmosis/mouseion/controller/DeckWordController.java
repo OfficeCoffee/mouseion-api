@@ -22,10 +22,11 @@ public class DeckWordController {
 
   private final DeckWordService deckWordService;
 
-  @GetMapping(path = "word/{wordId}")
-  public ResponseEntity<List<DeckWordDto>> getAllDecksWithWord(@PathVariable Integer wordId) {
+  @GetMapping(path = "deck/{deckId}/word/{wordId}")
+  public ResponseEntity<DeckWordDto> getWordByDeckId(
+      @PathVariable Integer deckId, @PathVariable Integer wordId) {
     return new ResponseEntity<>(
-        deckWordDtoMapper.toDtoList(deckWordService.getAllDecksWithWord(wordId)), HttpStatus.OK);
+        deckWordDtoMapper.toDto(deckWordService.getWordByDeckId(deckId, wordId)), HttpStatus.OK);
   }
 
   @GetMapping(path = "deck/{deckId}")
@@ -34,11 +35,10 @@ public class DeckWordController {
         deckWordDtoMapper.toDtoList(deckWordService.getAllWordsInDeck(deckId)), HttpStatus.OK);
   }
 
-  @GetMapping(path = "deck/{deckId}/word/{wordId}")
-  public ResponseEntity<DeckWordDto> getWordByDeckId(
-      @PathVariable Integer deckId, @PathVariable Integer wordId) {
+  @GetMapping(path = "word/{wordId}")
+  public ResponseEntity<List<DeckWordDto>> getAllDecksWithWord(@PathVariable Integer wordId) {
     return new ResponseEntity<>(
-        deckWordDtoMapper.toDto(deckWordService.getWordByDeckId(deckId, wordId)), HttpStatus.OK);
+        deckWordDtoMapper.toDtoList(deckWordService.getAllDecksWithWord(wordId)), HttpStatus.OK);
   }
 
   // Testing method to make sure the connection is working
