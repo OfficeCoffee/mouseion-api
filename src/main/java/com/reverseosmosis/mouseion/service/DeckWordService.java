@@ -1,14 +1,11 @@
 package com.reverseosmosis.mouseion.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.reverseosmosis.mouseion.model.DeckWord;
 import com.reverseosmosis.mouseion.repository.DeckWordRepository;
-
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
