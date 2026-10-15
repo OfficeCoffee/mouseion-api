@@ -21,10 +21,10 @@ public class Decks {
     @Id 
     @Column(name = "deck_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer deck_id;
+    private Integer deckId;
 
     @Column(name = "deck_name", nullable = false, unique = true, length = 50)
-    private String deck_name;
+    private String deckName;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp(source = SourceType.DB)

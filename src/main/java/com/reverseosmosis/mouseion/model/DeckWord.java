@@ -15,7 +15,7 @@ import lombok.Data;
 @Table(name = "deck_word")
 public class DeckWord {
     @EmbeddedId 
-    private DeckWordId id;
+    private DeckWordId deckWordId;
 
     @JoinColumn(name = "deck_id", nullable = false)
     @ManyToOne

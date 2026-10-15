@@ -21,7 +21,7 @@ public class Words {
     @Id 
     @Column(name="word_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer word_id;
+    private Integer wordId;
 
     @Column(name = "word", nullable = false, length = 50)
     private String word;
