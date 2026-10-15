@@ -8,12 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WordsRepo extends JpaRepository<Words, Integer>{
+public interface WordsRepo extends JpaRepository<Words, Integer> {
 
   List<Words> findByActiveTrue();
 
-  @Query(
-      value = "SELECT * FROM words w WHERE w.word = ?1",
-      nativeQuery = true)
+  @Query(value = "SELECT * FROM words w WHERE w.word = ?1", nativeQuery = true)
   Optional<Words> findByWord(String word);
 }
