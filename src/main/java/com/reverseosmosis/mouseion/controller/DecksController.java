@@ -28,17 +28,17 @@ public class DecksController {
         decksDtoMapper.toDtoList(decksService.getAllDecks()), HttpStatus.OK);
   }
 
-  @GetMapping("{id}")
+  @GetMapping("/id/{id}")
   ResponseEntity<DecksDto> getDeckById(@PathVariable Integer id)
       throws EntityNotFoundException { // Get specific deck by id?
     return new ResponseEntity<>(decksDtoMapper.toDto(decksService.getDeckById(id)), HttpStatus.OK);
   }
 
   // Questions: How to get name specific search working? How to get repo into Bruno for testing?
-  @GetMapping("{name}")
-  ResponseEntity<DecksDto> getDecksByName(@PathVariable String name)
+  @GetMapping("/name/{name}")
+  ResponseEntity<List<DecksDto>> getDecksByName(@PathVariable String name)
       throws EntityNotFoundException { // Get specific deck by name?
     return new ResponseEntity<>(
-        decksDtoMapper.toDto(decksService.getDecksByName(name)), HttpStatus.OK);
+        decksDtoMapper.toDtoList(decksService.getDecksByName(name)), HttpStatus.OK);
   }
 }

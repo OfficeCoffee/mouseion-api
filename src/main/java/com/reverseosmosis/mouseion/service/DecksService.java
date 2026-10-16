@@ -5,27 +5,27 @@ import com.reverseosmosis.mouseion.repository.DecksRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class DecksService { // Problem with syntax + .findAll initially not found
+public class DecksService {
   private final DecksRepository decksRepository;
 
   public List<Decks> getAllDecks() {
     return decksRepository.findAll();
   }
 
-  public Decks getDeckById(Integer id) throws EntityNotFoundException {
+  public Decks getDeckById(@NonNull Integer id) throws EntityNotFoundException {
     return decksRepository
         .findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Deck " + id + " not found"));
   }
 
-  public Decks getDecksByName(String name) throws EntityNotFoundException {
-    return decksRepository
-        .findByDeckName(name)
-        .orElseThrow(() -> new EntityNotFoundException("Deck " + name + " not found"));
+  public List<Decks> getDecksByName(String name) throws EntityNotFoundException {
+    return decksRepository.findByDeckName(name);
+        //.orElseThrow(() -> new EntityNotFoundException("Deck " + name + " not found"));
   }
 
   //   public List<Decks> getDecksByName(String name) {
