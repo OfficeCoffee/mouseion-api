@@ -1,0 +1,17 @@
+meta {
+  name: GetWordId
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/mouseion/words/id/1
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}

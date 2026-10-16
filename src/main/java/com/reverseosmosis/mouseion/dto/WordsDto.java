@@ -9,7 +9,7 @@ import lombok.Value;
 @Data
 @Value
 public class WordsDto {
-  Integer word_id;
+  Integer wordId;
 
   String word;
 
