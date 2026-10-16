@@ -9,7 +9,7 @@ import lombok.Value;
 @Data
 @Value
 public class WordsDto {
-  Integer wordId;
+  Integer word_id;
 
   String word;
 
@@ -17,5 +17,5 @@ public class WordsDto {
 
   String definition;
 
-  Instant createdAt;
+  Instant dateAdded;
 }

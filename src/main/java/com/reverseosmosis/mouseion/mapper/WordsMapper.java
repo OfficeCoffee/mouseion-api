@@ -14,13 +14,7 @@ public interface WordsMapper {
 
   Words toEntity(WordsDto wordsDto) throws EntityNotFoundException;
 
-// Made static for the controller
-  static WordsDto toDto(Words words) throws EntityNotFoundException {
-    throw new UnsupportedOperationException("Unimplemented method 'toDto'");
-}
+  WordsDto toDto(Words words) throws EntityNotFoundException;
 
-// Made static for the controller
-  static List<WordsDto> toDtoList(List<Words> wordsList) throws EntityNotFoundException {
-    throw new UnsupportedOperationException("Unimplemented method 'toDtoList'");
-}
+  List<WordsDto> toDtoList(List<Words> wordsList) throws EntityNotFoundException;
 }
