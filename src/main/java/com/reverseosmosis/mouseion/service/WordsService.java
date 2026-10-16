@@ -26,9 +26,8 @@ public class WordsService {
   }
 
   // Find entity by search string (similar to finding Student by firstName in the overview)
-  public Words getWordByName(String word) throws EntityNotFoundException {
-    return wordsRepository
-        .findByWord(word)
-        .orElseThrow(() -> new EntityNotFoundException("Word (" + word + ") not found"));
+  public List<Words> getWordByName(String word) throws EntityNotFoundException {
+    return wordsRepository.findByWord(word);
+    // .orElseThrow(() -> new EntityNotFoundException("Word (" + word + ") not found"));
   }
 }

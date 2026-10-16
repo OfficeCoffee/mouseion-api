@@ -1,8 +1,8 @@
 package com.reverseosmosis.mouseion.controller;
 
 import com.reverseosmosis.mouseion.dto.WordsDto;
-import com.reverseosmosis.mouseion.model.Words;
 import com.reverseosmosis.mouseion.mapper.WordsMapper;
+import com.reverseosmosis.mouseion.model.Words;
 import com.reverseosmosis.mouseion.service.WordsService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -39,13 +39,9 @@ public class WordsController {
 
   // Find entity by search string (similar to finding Student by firstName in the overview)
   @GetMapping(path = "/name/{name}")
-  ResponseEntity<WordsDto> getWordByName(@PathVariable String name) throws EntityNotFoundException {
-    return new ResponseEntity<>(wordsMapper.toDto(wordService.getWordByName(name)), HttpStatus.OK);
-  }
-
-   // Testing method to make sure the connection is working
-  @GetMapping("/test")
-  public String test() {
-    return "Rose was here :D";
+  ResponseEntity<List<WordsDto>> getWordByName(@PathVariable String name)
+      throws EntityNotFoundException {
+    return new ResponseEntity<>(
+        wordsMapper.toDtoList(wordService.getWordByName(name)), HttpStatus.OK);
   }
 }
