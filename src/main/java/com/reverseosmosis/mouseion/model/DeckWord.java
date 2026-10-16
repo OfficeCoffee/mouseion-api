@@ -13,7 +13,8 @@ import lombok.Data;
 @Entity
 @Table(name = "deck_word")
 public class DeckWord {
-  @EmbeddedId private DeckWordId deckWordId;
+  @EmbeddedId
+  private DeckWordId deckWordId;
 
   @JoinColumn(name = "deck_id", nullable = false)
   @ManyToOne
