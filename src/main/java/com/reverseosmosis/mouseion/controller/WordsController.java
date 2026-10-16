@@ -2,7 +2,6 @@ package com.reverseosmosis.mouseion.controller;
 
 import com.reverseosmosis.mouseion.dto.WordsDto;
 import com.reverseosmosis.mouseion.mapper.WordsMapper;
-import com.reverseosmosis.mouseion.model.Words;
 import com.reverseosmosis.mouseion.service.WordsService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -26,8 +25,7 @@ public class WordsController {
   // Find all entities
   @GetMapping
   ResponseEntity<List<WordsDto>> getAllWords() {
-    List<Words> test = wordService.getAllWords();
-    System.out.println(test);
+    wordService.getAllWords();
     return new ResponseEntity<>(wordsMapper.toDtoList(wordService.getAllWords()), HttpStatus.OK);
   }
 
