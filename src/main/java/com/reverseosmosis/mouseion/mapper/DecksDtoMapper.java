@@ -17,5 +17,4 @@ public interface DecksDtoMapper {
   DecksDto toDto(Decks decks) throws EntityNotFoundException;
 
   List<DecksDto> toDtoList(List<Decks> decksList) throws EntityNotFoundException;
-    // Change to allow all decks call to include id (string) and createdAt (Instant) for Bruno
 }

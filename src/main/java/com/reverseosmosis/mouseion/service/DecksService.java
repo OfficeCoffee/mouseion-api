@@ -25,14 +25,5 @@ public class DecksService {
 
   public List<Decks> getDecksByName(String name) throws EntityNotFoundException {
     return decksRepository.findByDeckName(name);
-        //.orElseThrow(() -> new EntityNotFoundException("Deck " + name + " not found"));
   }
-
-  //   public List<Decks> getDecksByName(String name) {
-  //     Optional<List<Decks>> result = decksRepository.findByDeckName(deckName);
-  //     if (result.isPresent() && result.get().isEmpty()) {
-  //       throw new EntityNotFoundException("Decks with name " + deckName + " not found");
-  //     }
-  //     return result.get();
-  //   }
 }
