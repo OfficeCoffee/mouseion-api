@@ -10,9 +10,9 @@ import lombok.Value;
 @Value
 public class DecksDto {
 
-  Integer id;
+  Integer deckId;
 
   String deckName;
 
-  Instant createdAt;
+  Instant dateAdded;
 }
