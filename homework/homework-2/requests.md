@@ -11,6 +11,4 @@
 
 ![Response](images/getWordByDeckId_2.png)
 
-
-
-
+**Note:** The above image uses an additional deck with an id of 2 that I created to test this request. That additional deck is not in the `init.sql` so that image cannot be replicated out of the box.
