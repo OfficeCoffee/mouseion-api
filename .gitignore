@@ -31,3 +31,6 @@ out/
 
 ### ENV FILES ###
 *.env
+
+### Java Version ###
+.java-version

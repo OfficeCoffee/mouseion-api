@@ -1,7 +1,6 @@
 package com.reverseosmosis.mouseion.model;
 
 import com.reverseosmosis.mouseion.model.composite.DeckWordId;
-
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -10,21 +9,20 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Data 
-@Entity 
+@Data
+@Entity
 @Table(name = "deck_word")
 public class DeckWord {
+  @EmbeddedId
+  private DeckWordId deckWordId;
 
-    @EmbeddedId 
-    private DeckWordId id;
+  @JoinColumn(name = "deck_id", nullable = false)
+  @ManyToOne
+  @MapsId("deckId")
+  private Decks deck;
 
-    @JoinColumn(name = "deck_id", nullable = false)
-    @ManyToOne
-    @MapsId("deck_id")
-    private Decks deck;
-
-    @JoinColumn(name = "word_id", nullable = false)
-    @ManyToOne
-    @MapsId("word_id")
-    private Words word;
+  @JoinColumn(name = "word_id", nullable = false)
+  @ManyToOne
+  @MapsId("wordId")
+  private Words word;
 }
