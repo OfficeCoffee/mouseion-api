@@ -44,7 +44,7 @@ public class DecksController {
 
   @GetMapping("/name/{name}")
   ResponseEntity<List<DecksDto>> getDecksByName(@PathVariable String name)
-      throws EntityNotFoundException { // Get specific deck by name?
+      throws EntityNotFoundException {
     return new ResponseEntity<>(
         decksDtoMapper.toDtoList(decksService.getDecksByName(name)), HttpStatus.OK);
   }
