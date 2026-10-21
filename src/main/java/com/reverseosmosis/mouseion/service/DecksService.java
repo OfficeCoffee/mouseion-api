@@ -1,9 +1,9 @@
 package com.reverseosmosis.mouseion.service;
 
+import com.reverseosmosis.mouseion.dto.DecksPutPostDto;
+import com.reverseosmosis.mouseion.mapper.DecksPutPostDtoMapper;
 import com.reverseosmosis.mouseion.model.Decks;
 import com.reverseosmosis.mouseion.repository.DecksRepository;
-import com.reverseosmosis.mouseion.mapper.DecksDtoMapper;
-import com.reverseosmosis.mouseion.mapper.DecksPutPostDtoMapper;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class DecksService {
     Decks deck = decksRepository
         .findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Deck " + id + " not found"));
-    
+
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.updateEntity(decksPutPostDto, deck));
   }
 }
