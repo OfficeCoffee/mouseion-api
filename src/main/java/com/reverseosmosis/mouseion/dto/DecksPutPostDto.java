@@ -8,7 +8,6 @@ import lombok.Value;
 @Data
 @Value
 public class DecksPutPostDto {
-    
-    String deckName;
 
+  String deckName;
 }

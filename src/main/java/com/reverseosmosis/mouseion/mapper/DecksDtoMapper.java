@@ -17,5 +17,4 @@ public interface DecksDtoMapper {
   DecksDto toDto(Decks decks) throws EntityNotFoundException;
 
   List<DecksDto> toDtoList(List<Decks> decksList) throws EntityNotFoundException;
-  
 }
