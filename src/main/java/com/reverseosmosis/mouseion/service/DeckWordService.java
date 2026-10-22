@@ -5,6 +5,7 @@ import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
 import com.reverseosmosis.mouseion.model.DeckWord;
 import com.reverseosmosis.mouseion.model.Decks;
 import com.reverseosmosis.mouseion.model.Words;
+import com.reverseosmosis.mouseion.model.composite.DeckWordId;
 import com.reverseosmosis.mouseion.repository.DeckWordRepository;
 import com.reverseosmosis.mouseion.repository.DecksRepository;
 import com.reverseosmosis.mouseion.repository.WordsRepo;
@@ -42,6 +43,33 @@ public class DeckWordService {
     deckWord.setWord(word);
 
     return deckWordRepository.saveAndFlush(deckWord);
+  }
+
+  public DeckWord updateDeckWordRequest(Integer deckId, Integer oldWordId, Integer newWordId)
+      throws EntityNotFoundException {
+    DeckWord oldDeckWord =
+        deckWordRepository
+            .findById(new DeckWordId(deckId, oldWordId))
+            .orElseThrow(() -> new EntityNotFoundException("DeckWord reltaionship not found."));
+
+    Decks deck = oldDeckWord.getDeck();
+
+    Words newWord =
+        wordsRepository
+            .findById(newWordId)
+            .orElseThrow(() -> new EntityNotFoundException("Word not found."));
+
+    // Remove old relationship
+    deckWordRepository.delete(oldDeckWord);
+    deckWordRepository.flush();
+
+    // Add new relationship
+    DeckWord newDeckWord = new DeckWord();
+    newDeckWord.setDeck(deck);
+    newDeckWord.setWord(newWord);
+    newDeckWord.setDeckWordId(new DeckWordId(deckId, newWordId));
+
+    return deckWordRepository.save(newDeckWord);
   }
 
   public DeckWord getWordByDeckId(Integer deckId, Integer wordId) throws EntityNotFoundException {

@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -58,4 +60,22 @@ public class DeckWordController {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
+
+  @PutMapping("/{deckId}/{oldWordId}")
+  public ResponseEntity<DeckWordDto> updateDeckWord(
+      @PathVariable Integer deckId,
+      @PathVariable Integer oldWordId,
+      @RequestParam Integer newWordId) {
+
+    return new ResponseEntity<>(
+        deckWordDtoMapper.toDto(
+            deckWordService.updateDeckWordRequest(deckId, oldWordId, newWordId)),
+        HttpStatus.OK);
+  }
+
+  // Testing method to make sure the connection is working
+  // @GetMapping("/test")
+  // public String test() {
+  //   return "Rose was here :D";
+  // }
 }
