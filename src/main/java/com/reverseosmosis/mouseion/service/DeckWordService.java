@@ -1,7 +1,13 @@
 package com.reverseosmosis.mouseion.service;
 
+import com.reverseosmosis.mouseion.dto.DeckWordDto;
+import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
 import com.reverseosmosis.mouseion.model.DeckWord;
+import com.reverseosmosis.mouseion.model.Decks;
+import com.reverseosmosis.mouseion.model.Words;
 import com.reverseosmosis.mouseion.repository.DeckWordRepository;
+import com.reverseosmosis.mouseion.repository.DecksRepository;
+import com.reverseosmosis.mouseion.repository.WordsRepo;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +18,31 @@ import org.springframework.stereotype.Service;
 public class DeckWordService {
 
   private final DeckWordRepository deckWordRepository;
+
+  private final DeckWordDtoMapper deckWordDtoMapper;
+
+  private final DecksRepository decksRepository;
+
+  private final WordsRepo wordsRepository;
+
+  public DeckWord createDeckWordRequest(DeckWordDto deckWordDto) throws EntityNotFoundException {
+    DeckWord deckWord = deckWordDtoMapper.toEntity(deckWordDto);
+
+    Decks deck =
+        decksRepository
+            .findById(deckWordDto.deckId())
+            .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
+
+    Words word =
+        wordsRepository
+            .findById(deckWordDto.wordId())
+            .orElseThrow(() -> new EntityNotFoundException("Word not found"));
+
+    deckWord.setDeck(deck);
+    deckWord.setWord(word);
+
+    return deckWordRepository.saveAndFlush(deckWord);
+  }
 
   public DeckWord getWordByDeckId(Integer deckId, Integer wordId) throws EntityNotFoundException {
 

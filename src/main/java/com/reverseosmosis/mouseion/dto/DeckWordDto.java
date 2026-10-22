@@ -1,6 +1,8 @@
 package com.reverseosmosis.mouseion.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
-public record DeckWordDto(Integer deckId, String deckName, Integer wordId, String wordValue) {}
+public record DeckWordDto(
+    @NotNull Integer deckId, String deckName, @NotNull Integer wordId, String wordValue) {}

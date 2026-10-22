@@ -18,5 +18,9 @@ public interface DeckWordDtoMapper {
   @Mapping(target = "wordValue", source = "word.word")
   DeckWordDto toDto(DeckWord deckWord);
 
+  @Mapping(target = "deck", ignore = true)
+  @Mapping(target = "word", ignore = true)
+  DeckWord toEntity(DeckWordDto deckWordDto);
+
   List<DeckWordDto> toDtoList(List<DeckWord> deckWordList);
 }
