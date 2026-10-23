@@ -9,7 +9,6 @@ import com.reverseosmosis.mouseion.service.DecksService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -73,15 +72,13 @@ public class DecksController {
   }
 
   @DeleteMapping(path = "/delete/{id}")
-  ResponseEntity<Object> deleteDeck(
-    @PathVariable("id") Integer id) {
-      
-      try{
-        decksService.deleteDeck(id);
-      } catch (EntityNotFoundException e) {
-        return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
-      }
-      return new ResponseEntity<>( HttpStatus.OK);
-    }
+  ResponseEntity<Object> deleteDeck(@PathVariable("id") Integer id) {
 
+    try {
+      decksService.deleteDeck(id);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }

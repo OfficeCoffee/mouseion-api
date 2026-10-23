@@ -31,7 +31,6 @@ public class DecksService {
   // GET Deck by name
   public List<Decks> getDecksByName(String name) throws EntityNotFoundException {
     return decksRepository.findByDeckName(name);
-    
   }
 
   // POST, Create new Deck
