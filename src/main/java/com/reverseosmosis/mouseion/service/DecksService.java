@@ -47,4 +47,11 @@ public class DecksService {
 
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.updateEntity(decksPutPostDto, deck));
   }
+public void deleteDeck(Integer id) throws EntityNotFoundException {
+    decksRepository
+        .findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Deck " + id + " not found"));
+    System.out.printf("test");
+    decksRepository.deleteById(id);
+  }
 }
