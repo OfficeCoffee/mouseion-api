@@ -1,5 +1,7 @@
 package com.reverseosmosis.mouseion.service;
 
+import com.reverseosmosis.mouseion.dto.PostPutWordsDto;
+import com.reverseosmosis.mouseion.mapper.WordsMapper;
 import com.reverseosmosis.mouseion.model.Words;
 import com.reverseosmosis.mouseion.repository.WordsRepo;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class WordsService {
 
   private final WordsRepo wordsRepository;
+
+  private final WordsMapper wordsMapper;
 
   // Find all entities
   public List<Words> getAllWords() {
@@ -29,5 +33,18 @@ public class WordsService {
   // Find entity by search string (similar to finding Student by firstName in the overview)
   public List<Words> getWordByName(String word) throws EntityNotFoundException {
     return wordsRepository.findByWord(word);
+  }
+
+  // Post (Create) a new word
+  public Words createWord(PostPutWordsDto postPutWordsDto) throws EntityNotFoundException {
+    return wordsRepository.saveAndFlush(wordsMapper.createEntity(postPutWordsDto));
+  }
+
+  // Put (Update) an existing word
+  public Words putWord(Integer id, PostPutWordsDto postPutWordsDto) throws EntityNotFoundException {
+    Words word = wordsRepository
+        .findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Word (" + id + ") not found"));
+    return wordsRepository.saveAndFlush(wordsMapper.updateEntity(postPutWordsDto, word));
   }
 }

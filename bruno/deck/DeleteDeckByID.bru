@@ -1,0 +1,17 @@
+meta {
+  name: DeleteDeckByID
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:8080/mouseion/decks/delete/6
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}

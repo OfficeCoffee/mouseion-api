@@ -2,7 +2,9 @@ package com.reverseosmosis.mouseion.controller;
 
 import com.reverseosmosis.mouseion.dto.DeckWordDto;
 import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
+import com.reverseosmosis.mouseion.model.DeckWord;
 import com.reverseosmosis.mouseion.service.DeckWordService;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -39,6 +45,32 @@ public class DeckWordController {
   public ResponseEntity<List<DeckWordDto>> getAllDecksWithWord(@PathVariable Integer wordId) {
     return new ResponseEntity<>(
         deckWordDtoMapper.toDtoList(deckWordService.getAllDecksWithWord(wordId)), HttpStatus.OK);
+  }
+
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> newDeckWord(@RequestBody DeckWordDto deckWordDto) {
+
+    try {
+      DeckWord deckWord = deckWordService.createDeckWordRequest(deckWordDto);
+
+      // Change the status from OK to CREATED after the homework
+      return ResponseEntity.status(HttpStatus.OK).body(deckWordDtoMapper.toDto(deckWord));
+
+    } catch (EntityNotFoundException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
+
+  @PutMapping("/{deckId}/{oldWordId}")
+  public ResponseEntity<DeckWordDto> updateDeckWord(
+      @PathVariable Integer deckId,
+      @PathVariable Integer oldWordId,
+      @RequestParam Integer newWordId) {
+
+    return new ResponseEntity<>(
+        deckWordDtoMapper.toDto(
+            deckWordService.updateDeckWordRequest(deckId, oldWordId, newWordId)),
+        HttpStatus.OK);
   }
 
   // Testing method to make sure the connection is working

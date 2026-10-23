@@ -1,0 +1,26 @@
+meta {
+  name: PostDeckWord
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/mouseion/deckWord
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "deckId": 1,
+    "deckName": "Cool Words",
+    "wordId": 5,
+    "wordValue": "a cool word"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
