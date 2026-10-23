@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,4 +71,17 @@ public class DecksController {
     }
     return new ResponseEntity<>(deck, HttpStatus.OK);
   }
+
+  @DeleteMapping(path = "/delete/{id}")
+  ResponseEntity<Object> deleteDeck(
+    @PathVariable("id") Integer id) {
+      
+      try{
+        decksService.deleteDeck(id);
+      } catch (EntityNotFoundException e) {
+        return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+      }
+      return new ResponseEntity<>( HttpStatus.OK);
+    }
+
 }

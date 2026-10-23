@@ -48,7 +48,22 @@ public class DecksService {
 
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.updateEntity(decksPutPostDto, deck));
   }
+
+  public void deleteDeck(Integer id) throws EntityNotFoundException {
+    
+    
+    decksRepository
+        .findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Deck " + id + " not found"));
+    System.out.printf("test");
+    decksRepository.deleteById(id);
+    //decksRepository.findById(id)
+    // for loop for delete all words, count() for i?
+    // deckdto has id -> pass to controller
+  }
+
+
+
 }
 
-// PUT = update existing resources
-// POST = create new resources
+//Delete deck + logic (.isEmpty())
