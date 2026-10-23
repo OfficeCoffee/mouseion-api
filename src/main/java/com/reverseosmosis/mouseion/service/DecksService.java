@@ -48,6 +48,12 @@ public class DecksService {
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.updateEntity(decksPutPostDto, deck));
   }
 
+  // public int wordsInDeck(int id){
+  //   int wordCount = 0;
+  //   //Count words in deck
+  //   return wordCount;
+  // }
+
   public void deleteDeck(Integer id) throws EntityNotFoundException {
 
     decksRepository
@@ -55,11 +61,17 @@ public class DecksService {
         .orElseThrow(() -> new EntityNotFoundException(
             "Deck " + id + " not found")); // Stops before deleting non-existing deck
     System.out.printf("test");
-    decksRepository.deleteById(id);
-    //decksRepository.count()).isEqualTo(1);
 
-    // decksRepository.findById(id)
-    // for loop for delete all words, count() for i?
+    //if(decksRepository.isEmpty()){
+    decksRepository.deleteById(id);
+    //}
+    //else{
+      // check deck_word for all word_ids with matching deck_id
+      // int wordCount = wordsInDeck(id);
+      // for(int i = 0; i < wordCount; i++){
+      //   //Identify word ids and run delete word command 
+      // }
+       
+    //  }
   }
 }
-
