@@ -62,16 +62,16 @@ public class DecksService {
             "Deck " + id + " not found")); // Stops before deleting non-existing deck
     System.out.printf("test");
 
-    //if(decksRepository.isEmpty()){
+    // if(decksRepository.isEmpty()){
     decksRepository.deleteById(id);
-    //}
-    //else{
-      // check deck_word for all word_ids with matching deck_id
-      // int wordCount = wordsInDeck(id);
-      // for(int i = 0; i < wordCount; i++){
-      //   //Identify word ids and run delete word/delete deck_word commands
-      // }
-       
+    // }
+    // else{
+    // check deck_word for all word_ids with matching deck_id
+    // int wordCount = wordsInDeck(id);
+    // for(int i = 0; i < wordCount; i++){
+    //   //Identify word ids and run delete word/delete deck_word commands
+    // }
+
     //  }
   }
 }

@@ -30,4 +30,13 @@ public class WordsService {
   public List<Words> getWordByName(String word) throws EntityNotFoundException {
     return wordsRepository.findByWord(word);
   }
+
+  public void deleteWord(Integer id) throws EntityNotFoundException {
+
+    wordsRepository
+        .findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(
+            "Word " + id + " not found")); // Stops before deleting non-existing deck
+    wordsRepository.deleteById(id);
+  }
 }

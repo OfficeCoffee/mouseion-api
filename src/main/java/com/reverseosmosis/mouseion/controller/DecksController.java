@@ -72,15 +72,13 @@ public class DecksController {
   }
 
   @DeleteMapping(path = "/delete/{id}")
-  ResponseEntity<Object> deleteDeck(
-    @PathVariable("id") Integer id) {
+  ResponseEntity<Object> deleteDeck(@PathVariable("id") Integer id) {
 
-      try{
-        decksService.deleteDeck(id);
-      } catch (EntityNotFoundException e) {
-        return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
-      }
-      return new ResponseEntity<>( HttpStatus.OK);
+    try {
+      decksService.deleteDeck(id);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }
-
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }
