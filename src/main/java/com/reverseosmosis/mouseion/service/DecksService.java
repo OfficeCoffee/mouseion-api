@@ -69,7 +69,7 @@ public class DecksService {
       // check deck_word for all word_ids with matching deck_id
       // int wordCount = wordsInDeck(id);
       // for(int i = 0; i < wordCount; i++){
-      //   //Identify word ids and run delete word command 
+      //   //Identify word ids and run delete word/delete deck_word commands
       // }
        
     //  }
