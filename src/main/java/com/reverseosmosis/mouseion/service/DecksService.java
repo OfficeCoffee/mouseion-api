@@ -37,7 +37,6 @@ public class DecksService {
   public Decks createDeck(DecksPutPostDto decksPutPostDto) throws EntityNotFoundException {
     // Deck only has string (name) when created. ID and dateAdded generated on DB end
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.createEntity(decksPutPostDto));
-    // saveAndFlush? -> purpose?
   }
 
   // PUT, Update existing deck
@@ -50,20 +49,17 @@ public class DecksService {
   }
 
   public void deleteDeck(Integer id) throws EntityNotFoundException {
-    
-    
+
     decksRepository
         .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Deck " + id + " not found"));
+        .orElseThrow(() -> new EntityNotFoundException(
+            "Deck " + id + " not found")); // Stops before deleting non-existing deck
     System.out.printf("test");
     decksRepository.deleteById(id);
-    //decksRepository.findById(id)
+    //decksRepository.count()).isEqualTo(1);
+
+    // decksRepository.findById(id)
     // for loop for delete all words, count() for i?
-    // deckdto has id -> pass to controller
   }
-
-
-
 }
 
-//Delete deck + logic (.isEmpty())
