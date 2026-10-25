@@ -82,4 +82,16 @@ public class DeckWordService {
   public List<DeckWord> getAllDecksWithWord(Integer wordId) {
     return deckWordRepository.findByDeckWordId_WordId(wordId);
   }
+
+  // public void deleteDeckWord(Integer deckId, Integer wordId) throws EntityNotFoundException {
+
+  //   deckWordRepository
+  //       .findByDeckWordId_DeckIdAndDeckWordId_WordId(deckId, wordId)
+  //       .orElseThrow(() -> new EntityNotFoundException(
+  //           "DeckWord " + deckId + deckId + " not found")); // Stops before deleting non-existing
+  // deck
+  //   deckWordRepository.deleteById(deckId);
+
+  // }
+
 }
