@@ -52,4 +52,14 @@ public class WordsService {
         .orElseThrow(() -> new EntityNotFoundException("Word (" + id + ") not found"));
     return wordsRepository.saveAndFlush(wordsMapper.updateEntity(postPutWordsDto, word));
   }
+
+  // public void deleteWord(Integer id) throws EntityNotFoundException {
+
+  //   wordsRepository
+  //       .findById(id)
+  //       .orElseThrow(() -> new EntityNotFoundException(
+  //           "Word " + id + " not found")); // Stops before deleting non-existing deck
+  //   wordsRepository.deleteById(id);
+  // }
+
 }
