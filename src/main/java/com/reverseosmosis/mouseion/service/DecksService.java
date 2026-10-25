@@ -30,7 +30,15 @@ public class DecksService {
 
   // GET Deck by name
   public List<Decks> getDecksByName(String name) throws EntityNotFoundException {
-    return decksRepository.findByDeckName(name);
+    // //return decksRepository.findByDeckName(name);
+    // if((decksRepository.findByDeckName(name)) == null){
+    //   //return new EntityNotFoundException("Deck (" + name + ") not found");
+    //   System.out.printf("test");
+    // }
+    return decksRepository
+        .findByDeckName(name);
+        //.orElseThrow(() -> new EntityNotFoundException("Deck " + name + " not found"));
+
   }
 
   // POST, Create new Deck
