@@ -88,7 +88,7 @@ public class WordsController {
 
   // Put (Update) an existing word
   @PutMapping(path = "/{id}")
-  ResponseEntity<Object> updateWorkOrder(
+  ResponseEntity<Object> updateWord(
       @PathVariable("id") Integer id, @RequestBody PostPutWordsDto postPutWordsDto) {
     Words word;
     try {

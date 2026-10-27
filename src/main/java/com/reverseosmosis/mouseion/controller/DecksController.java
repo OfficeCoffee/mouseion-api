@@ -1,11 +1,9 @@
 package com.reverseosmosis.mouseion.controller;
 
-import com.reverseosmosis.mouseion.dto.DeckWordDto;
 import com.reverseosmosis.mouseion.dto.DecksDto;
 import com.reverseosmosis.mouseion.dto.DecksPutPostDto;
 import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
 import com.reverseosmosis.mouseion.mapper.DecksDtoMapper;
-import com.reverseosmosis.mouseion.model.DeckWord;
 import com.reverseosmosis.mouseion.model.Decks;
 import com.reverseosmosis.mouseion.service.DeckWordService;
 import com.reverseosmosis.mouseion.service.DecksService;
@@ -80,17 +78,25 @@ public class DecksController {
     return new ResponseEntity<>(deck, HttpStatus.OK);
   }
 
-  // Post (create) add word to deck
-  @PostMapping("{wordId}/deck/{deckId}")
-  ResponseEntity<DeckWordDto> addWordToDeck(
-      @PathVariable Integer wordId, @PathVariable Integer deckId) {
+  // @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+  // ResponseEntity<Object> addWordToDeck(@RequestBody DecksPutPostDto decksPutPostDto) {
 
-    DeckWordDto deckWordDto = new DeckWordDto(deckId, wordId);
+  // }
 
-    DeckWord deckWord = deckWordService.createDeckWordRequest(deckWordDto);
+  // @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+  // ResponseEntity<Object> addWordToDeck(@RequestBody )
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(deckWordDtoMapper.toDto(deckWord));
-  }
+  // // Post (create) add word to deck
+  // @PostMapping("/{deckId}/word/{wordId}")
+  // ResponseEntity<DeckWordDto> addWordToDeck(
+  //     @PathVariable Integer deckId, @PathVariable Integer wordId) {
+
+  //   DeckWordDto deckWordDto = new DeckWordDto(deckId, wordId);
+
+  //   DeckWord deckWord = deckWordService.createDeckWordRequest(deckWordDto);
+
+  //   return ResponseEntity.status(HttpStatus.CREATED).body(deckWordDtoMapper.toDto(deckWord));
+  // }
 
   @PutMapping(path = "/{id}")
   ResponseEntity<Object> updateDeck(
