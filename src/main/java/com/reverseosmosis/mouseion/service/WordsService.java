@@ -35,6 +35,11 @@ public class WordsService {
     return wordsRepository.findByWord(word);
   }
 
+  // Find top ten most recent words
+  public List<Words> getTenWordsByDate() throws EntityNotFoundException {
+    return wordsRepository.findTenWordsByDate();
+  }
+
   // Post (Create) a new word
   public Words createWord(PostPutWordsDto postPutWordsDto) throws EntityNotFoundException {
     return wordsRepository.saveAndFlush(wordsMapper.createEntity(postPutWordsDto));

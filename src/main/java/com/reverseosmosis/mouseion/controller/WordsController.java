@@ -50,6 +50,13 @@ public class WordsController {
         wordsMapper.toDtoList(wordService.getWordByName(name)), HttpStatus.OK);
   }
 
+  // Find top ten most recent words
+  @GetMapping(path = "/recent")
+  ResponseEntity<List<WordsDto>> getTenWordsByDate() throws EntityNotFoundException {
+    return new ResponseEntity<>(
+        wordsMapper.toDtoList(wordService.getTenWordsByDate()), HttpStatus.OK);
+  }
+
   // Post (Create) a new word
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   ResponseEntity<Object> submitWord(@RequestBody PostPutWordsDto postPutWordsDto) {
