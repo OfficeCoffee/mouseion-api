@@ -54,10 +54,15 @@ public class DecksController {
   }
 
   // Find all words in deck
-  @GetMapping("deck/{deckId}")
-  ResponseEntity<List<DeckWordDto>> getWordsInDeck(@PathVariable Integer deckId) {
-    return ResponseEntity.ok(
-        deckWordDtoMapper.toDtoList(deckWordService.getAllWordsInDeck(deckId)));
+  @GetMapping(path = "{deckId}/words")
+  ResponseEntity<Object> getWordsInDeck(@PathVariable Integer deckId) {
+    try {
+      return new ResponseEntity<>(
+          deckWordDtoMapper.toWordInDeckDtoList(deckWordService.getAllWordsInDeck(deckId)),
+          HttpStatus.OK);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -1,6 +1,7 @@
 package com.reverseosmosis.mouseion.mapper;
 
 import com.reverseosmosis.mouseion.dto.DeckWordDto;
+import com.reverseosmosis.mouseion.dto.WordInDeckDto;
 import com.reverseosmosis.mouseion.model.DeckWord;
 import com.reverseosmosis.mouseion.service.DeckWordService;
 import java.util.List;
@@ -21,4 +22,10 @@ public interface DeckWordDtoMapper {
   DeckWord toEntity(DeckWordDto deckWordDto);
 
   List<DeckWordDto> toDtoList(List<DeckWord> deckWordList);
+
+  @Mapping(target = "wordId", source = "word.wordId")
+  @Mapping(target = "word", source = "word.word")
+  WordInDeckDto toWordInDeckDto(DeckWord deckWord);
+
+  List<WordInDeckDto> toWordInDeckDtoList(List<DeckWord> deckWords);
 }
