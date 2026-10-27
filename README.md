@@ -2,8 +2,7 @@
 
 - Java 17
 - Docker 29.9.2
-- Gradle (version)
-- Any other dependencies
+- Gradle
 
 # **How to Run Mouseion API**
 
@@ -27,26 +26,7 @@
 
 # **How to Test** 
 
-**API definition document**: (Link to API def document)
+- All premade Bruno tests should be valid and should cover everything within the API definition document
 
-**Deck**
+[API definition document](https://github.com/OfficeCoffee/mouseion-api/blob/underwood-homework-5/API-definition-document.md)
 
-*Get:*
-- Get all decks
-- Get deck by ID
-- Get deck by name
-
-*Put:*
-
-**Deck Words**
-
-- Get all decks that contain words
-- Get all words in deck
-- Get words by deck ID
-
-**Words**
-
-- Get all words
-- Get word by ID
-- Get word by name
-- Get recent words by date
