@@ -4,7 +4,9 @@
 
 **Deck**
 
-- Ex
+- Get all decks
+- Get deck by ID
+- Get deck by name
 
 **DeckWord**
 
@@ -12,7 +14,9 @@
 
 **Word**
 
-- Ex
+- Get all words
+- Get words by ID
+- Get words by name
 
 ### POST methods
 
