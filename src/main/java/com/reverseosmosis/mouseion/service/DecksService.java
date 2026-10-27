@@ -40,9 +40,10 @@ public class DecksService {
 
   // PUT, Update existing deck
   public Decks putDeck(Integer id, DecksPutPostDto decksPutPostDto) throws EntityNotFoundException {
-    Decks deck = decksRepository
-        .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
+    Decks deck =
+        decksRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
 
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.updateEntity(decksPutPostDto, deck));
   }
@@ -51,8 +52,10 @@ public class DecksService {
 
     decksRepository
         .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException(
-            "Deck " + id + " not found")); // Stops before deleting non-existing deck
+        .orElseThrow(
+            () ->
+                new EntityNotFoundException(
+                    "Deck " + id + " not found")); // Stops before deleting non-existing deck
 
     decksRepository.deleteById(id);
   }
