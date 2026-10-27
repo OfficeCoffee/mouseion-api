@@ -1,9 +1,12 @@
 package com.reverseosmosis.mouseion.controller;
 
+import com.reverseosmosis.mouseion.dto.DeckWordDto;
 import com.reverseosmosis.mouseion.dto.PostPutWordsDto;
 import com.reverseosmosis.mouseion.dto.WordsDto;
+import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
 import com.reverseosmosis.mouseion.mapper.WordsMapper;
 import com.reverseosmosis.mouseion.model.Words;
+import com.reverseosmosis.mouseion.service.DeckWordService;
 import com.reverseosmosis.mouseion.service.WordsService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -29,6 +32,9 @@ public class WordsController {
   private final WordsMapper wordsMapper;
   private final WordsService wordService;
 
+  private final DeckWordDtoMapper deckWordDtoMapper;
+  private final DeckWordService deckWordService;
+
   // Find all entities
   @GetMapping
   ResponseEntity<List<WordsDto>> getAllWords() {
@@ -48,6 +54,13 @@ public class WordsController {
       throws EntityNotFoundException {
     return new ResponseEntity<>(
         wordsMapper.toDtoList(wordService.getWordByName(name)), HttpStatus.OK);
+  }
+
+  // Find all words in deck
+  @GetMapping("deck/{deckId}")
+  ResponseEntity<List<DeckWordDto>> getWordsInDeck(@PathVariable Integer deckId) {
+    return ResponseEntity.ok(
+        deckWordDtoMapper.toDtoList(deckWordService.getAllWordsInDeck(deckId)));
   }
 
   // Post (Create) a new word
