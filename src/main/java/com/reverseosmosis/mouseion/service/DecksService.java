@@ -48,20 +48,18 @@ public class DecksService {
 
   // PUT, Update existing deck
   public Decks putDeck(Integer id, DecksPutPostDto decksPutPostDto) throws EntityNotFoundException {
-    Decks deck =
-        decksRepository
-            .findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
+    Decks deck = decksRepository
+        .findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
 
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.updateEntity(decksPutPostDto, deck));
   }
 
   @Transactional
   public void deleteDeck(Integer deckId) {
-    Decks deck =
-        decksRepository
-            .findById(deckId)
-            .orElseThrow(() -> new EntityNotFoundException("Deck not found."));
+    Decks deck = decksRepository
+        .findById(deckId)
+        .orElseThrow(() -> new EntityNotFoundException("Deck not found."));
 
     // TODO: Convert this to a stream mapping later (monad :D)
     List<Integer> wordIds = new ArrayList<>();
