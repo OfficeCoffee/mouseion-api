@@ -27,7 +27,7 @@
 **Deck**
 
 - Create new deck
-- Create word in deck
+- Create word in deck (WIP)
 
 **Word**
 
