@@ -2,16 +2,17 @@
 
 - Java 17
 - Docker 29.9.2
+- Gradle (version)
 - Any other dependencies
 
-# **How to Run Mouseion**
+# **How to Run Mouseion API**
 
 - Switch to the main branch to run the current production
 
 **Run the Database**
 
 - Move to the db folder in the terminal
-- run docker compose up
+- run `docker compose up`
 
 **Run the Service**
 
