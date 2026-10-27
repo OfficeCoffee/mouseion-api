@@ -77,9 +77,11 @@ public class DecksService {
     // Delete the deck
     decksRepository.delete(deck);
 
+    deckWordRepository.flush();
+
     // Delete every hanging child / word
     for (Integer wordId : wordIds) {
-      if (deckWordRepository.findDeckWordByDeckId(wordId).isEmpty()) {
+      if (deckWordRepository.findDeckWordByWordId(wordId).isEmpty()) {
         wordsRepository.deleteById(wordId);
       }
     }
