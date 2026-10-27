@@ -29,15 +29,13 @@ public class DeckWordService {
   public DeckWord createDeckWordRequest(DeckWordDto deckWordDto) throws EntityNotFoundException {
     DeckWord deckWord = deckWordDtoMapper.toEntity(deckWordDto);
 
-    Decks deck =
-        decksRepository
-            .findById(deckWordDto.deckId())
-            .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
+    Decks deck = decksRepository
+        .findById(deckWordDto.deckId())
+        .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
 
-    Words word =
-        wordsRepository
-            .findById(deckWordDto.wordId())
-            .orElseThrow(() -> new EntityNotFoundException("Word not found"));
+    Words word = wordsRepository
+        .findById(deckWordDto.wordId())
+        .orElseThrow(() -> new EntityNotFoundException("Word not found"));
 
     deckWord.setDeck(deck);
     deckWord.setWord(word);
@@ -55,10 +53,9 @@ public class DeckWordService {
         .findById(wordId)
         .orElseThrow(() -> new EntityNotFoundException("Word not found."));
 
-    DeckWord deckWord =
-        deckWordRepository
-            .findDeckWord(deckId, wordId)
-            .orElseThrow(() -> new EntityNotFoundException("This word is not in this deck."));
+    DeckWord deckWord = deckWordRepository
+        .findDeckWord(deckId, wordId)
+        .orElseThrow(() -> new EntityNotFoundException("This word is not in this deck."));
 
     deckWordRepository.delete(deckWord);
     deckWordRepository.flush();
