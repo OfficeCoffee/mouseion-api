@@ -13,9 +13,7 @@ import org.mapstruct.Mapping;
 public interface DeckWordDtoMapper {
 
   @Mapping(target = "deckId", source = "deck.deckId")
-  @Mapping(target = "deckName", source = "deck.deckName")
   @Mapping(target = "wordId", source = "word.wordId")
-  @Mapping(target = "wordValue", source = "word.word")
   DeckWordDto toDto(DeckWord deckWord);
 
   @Mapping(target = "deck", ignore = true)
