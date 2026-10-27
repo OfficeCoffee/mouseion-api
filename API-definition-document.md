@@ -7,43 +7,45 @@
 - Get all decks
 - Get deck by ID
 - Get deck by name
+- Get all words in a deck
 
 **DeckWord**
 
-- Ex
+- Get all decks that contain words
+- Get all words in deck
+- Get words by deck ID
 
 **Word**
 
 - Get all words
 - Get words by ID
 - Get words by name
+- Get recent words by date
 
 ### POST methods
 
 **Deck**
 
-- Ex
+- Create new deck
+- Create word in deck
 
 **Word**
 
-- Ex
+- Create new word
 
 ### PUT methods
 
 **Deck**
 
-- Ex
+- Update existing deck
 
 **Word**
 
-- Ex
+- Update existing Word
 
 ### DELETE methods
 
 **Deck**
 
-- Ex
-
-**Word**
-
-- Ex
+- Delete deck
+- Delete word in a deck
