@@ -5,6 +5,7 @@ import com.reverseosmosis.mouseion.dto.PostPutWordsDto;
 import com.reverseosmosis.mouseion.dto.WordsDto;
 import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
 import com.reverseosmosis.mouseion.mapper.WordsMapper;
+import com.reverseosmosis.mouseion.model.DeckWord;
 import com.reverseosmosis.mouseion.model.Words;
 import com.reverseosmosis.mouseion.service.DeckWordService;
 import com.reverseosmosis.mouseion.service.WordsService;
@@ -74,6 +75,17 @@ public class WordsController {
   ResponseEntity<List<DeckWordDto>> getWordsInDeck(@PathVariable Integer deckId) {
     return ResponseEntity.ok(
         deckWordDtoMapper.toDtoList(deckWordService.getAllWordsInDeck(deckId)));
+  }
+
+  @PostMapping("{wordId}/deck/{deckId}")
+  ResponseEntity<DeckWordDto> addWordToDeck(
+      @PathVariable Integer wordId, @PathVariable Integer deckId) {
+
+    DeckWordDto deckWordDto = new DeckWordDto(deckId, wordId);
+
+    DeckWord deckWord = deckWordService.createDeckWordRequest(deckWordDto);
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(deckWordDtoMapper.toDto(deckWord));
   }
 
   // Post (Create) a new word
