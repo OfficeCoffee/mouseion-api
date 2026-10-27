@@ -11,8 +11,9 @@
 
 **Run the Database**
 
-- Move to the db folder in the terminal
-- run `docker compose up`
+- Open a terminal
+- Navigate to the directory containing the init.sql and docker-compose.yml files using cd. These files need to be in the same directory.
+- Run sudo docker compose up -d. This command starts the database docker image defined in the docker-compose.yml in detached mode.
 
 **Run the Service**
 
@@ -23,7 +24,6 @@
 
 - Open Bruno and connect to Mouseion
 - Run any of the premade Bruno files
-
 
 # **How to Test** 
 
