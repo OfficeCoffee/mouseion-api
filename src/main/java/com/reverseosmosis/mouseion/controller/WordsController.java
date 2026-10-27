@@ -81,16 +81,4 @@ public class WordsController {
     }
     return new ResponseEntity<>(word, HttpStatus.OK);
   }
-
-  // @DeleteMapping(path = "/delete/{id}")
-  // ResponseEntity<Object> deleteWord(@PathVariable("id") Integer id) {
-
-  //   try {
-  //     wordService.deleteWord(id);
-  //   } catch (EntityNotFoundException e) {
-  //     return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
-  //   }
-  //   return new ResponseEntity<>(HttpStatus.OK);
-  // }
-
 }

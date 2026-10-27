@@ -38,7 +38,6 @@ public class DecksController {
 
   @GetMapping("/id/{id}")
   ResponseEntity<?> getDeckById(@PathVariable Integer id) throws EntityNotFoundException {
-    
     try {
       new ResponseEntity<>(decksDtoMapper.toDto(decksService.getDeckById(id)), HttpStatus.OK);
     } catch (EntityNotFoundException e) {
@@ -49,12 +48,8 @@ public class DecksController {
 
   @GetMapping("/name/{name}")
   ResponseEntity<?> getDecksByName(@PathVariable String name) throws EntityNotFoundException {
-    // try {
-    //   new ResponseEntity<>(decksDtoMapper.toDtoList(decksService.getDecksByName(name)), HttpStatus.OK);
-    // } catch (EntityNotFoundException e) {
-    //   return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
-    // }
-    return new ResponseEntity<>(decksDtoMapper.toDtoList(decksService.getDecksByName(name)), HttpStatus.OK);
+    return new ResponseEntity<>(
+        decksDtoMapper.toDtoList(decksService.getDecksByName(name)), HttpStatus.OK);
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -63,8 +58,7 @@ public class DecksController {
     try {
       deck = decksService.createDeck(decksPutPostDto);
     } catch (EntityNotFoundException e) {
-      //return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
-      return ResponseEntity.badRequest().body(e.getMessage());
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<>(deck, HttpStatus.OK);
   }
@@ -77,7 +71,6 @@ public class DecksController {
       deck = decksService.putDeck(id, decksPutPostDto);
     } catch (EntityNotFoundException e) {
       return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
-      //return ResponseEntity.badRequest().body(e.getMessage());
     }
     return new ResponseEntity<>(deck, HttpStatus.OK);
   }

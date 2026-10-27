@@ -27,7 +27,7 @@ public class WordsService {
   public Words getWordById(@NonNull Integer id) throws EntityNotFoundException {
     return wordsRepository
         .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Word (" + id + ") not found"));
+        .orElseThrow(() -> new EntityNotFoundException("Word not found"));
   }
 
   // Find entity by search string (similar to finding Student by firstName in the overview)
@@ -44,17 +44,7 @@ public class WordsService {
   public Words putWord(Integer id, PostPutWordsDto postPutWordsDto) throws EntityNotFoundException {
     Words word = wordsRepository
         .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Word (" + id + ") not found"));
+        .orElseThrow(() -> new EntityNotFoundException("Word not found"));
     return wordsRepository.saveAndFlush(wordsMapper.updateEntity(postPutWordsDto, word));
   }
-
-  // public void deleteWord(Integer id) throws EntityNotFoundException {
-
-  //   wordsRepository
-  //       .findById(id)
-  //       .orElseThrow(() -> new EntityNotFoundException(
-  //           "Word " + id + " not found")); // Stops before deleting non-existing deck
-  //   wordsRepository.deleteById(id);
-  // }
-
 }

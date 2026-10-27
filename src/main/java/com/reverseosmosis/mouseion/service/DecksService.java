@@ -25,20 +25,12 @@ public class DecksService {
   public Decks getDeckById(@NonNull Integer id) throws EntityNotFoundException {
     return decksRepository
         .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Deck " + id + " not found"));
+        .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
   }
 
   // GET Deck by name
   public List<Decks> getDecksByName(String name) throws EntityNotFoundException {
-    // //return decksRepository.findByDeckName(name);
-    // if((decksRepository.findByDeckName(name)) == null){
-    //   //return new EntityNotFoundException("Deck (" + name + ") not found");
-    //   System.out.printf("test");
-    // }
-    return decksRepository
-        .findByDeckName(name);
-        //.orElseThrow(() -> new EntityNotFoundException("Deck " + name + " not found"));
-
+    return decksRepository.findByDeckName(name); // returns empty array if search not found
   }
 
   // POST, Create new Deck
@@ -50,16 +42,10 @@ public class DecksService {
   public Decks putDeck(Integer id, DecksPutPostDto decksPutPostDto) throws EntityNotFoundException {
     Decks deck = decksRepository
         .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Deck " + id + " not found"));
+        .orElseThrow(() -> new EntityNotFoundException("Deck not found"));
 
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.updateEntity(decksPutPostDto, deck));
   }
-
-  // public int wordsInDeck(int id){
-  //   int wordCount = 0;
-  //   //Count words in deck
-  //   return wordCount;
-  // }
 
   public void deleteDeck(Integer id) throws EntityNotFoundException {
 
@@ -67,18 +53,7 @@ public class DecksService {
         .findById(id)
         .orElseThrow(() -> new EntityNotFoundException(
             "Deck " + id + " not found")); // Stops before deleting non-existing deck
-    System.out.printf("test");
 
-    // if(decksRepository.isEmpty()){
     decksRepository.deleteById(id);
-    // }
-    // else{
-    // check deck_word for all word_ids with matching deck_id
-    // int wordCount = wordsInDeck(id);
-    // for(int i = 0; i < wordCount; i++){
-    //   //Identify word ids and run delete word/delete deck_word commands
-    // }
-
-    //  }
   }
 }
