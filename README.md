@@ -26,7 +26,8 @@
 
 # **How to Test** 
 
-- All premade Bruno tests should be valid and should cover everything within the API definition document
-
 [API definition document](https://github.com/OfficeCoffee/mouseion-api/blob/underwood-homework-5/API-definition-document.md)
+
+- All premade Bruno tests should be valid and should cover everything within the API definition document.
+- If the request URL contains a word id or deck id that does not exist in the database, it will return a 404 not found.
 
