@@ -1,10 +1,13 @@
 package com.reverseosmosis.mouseion.controller;
 
+import com.reverseosmosis.mouseion.dto.DeckWordDto;
 import com.reverseosmosis.mouseion.dto.DecksDto;
 import com.reverseosmosis.mouseion.dto.DecksPutPostDto;
+import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
 import com.reverseosmosis.mouseion.mapper.DecksDtoMapper;
-import com.reverseosmosis.mouseion.mapper.DecksPutPostDtoMapper;
+import com.reverseosmosis.mouseion.model.DeckWord;
 import com.reverseosmosis.mouseion.model.Decks;
+import com.reverseosmosis.mouseion.service.DeckWordService;
 import com.reverseosmosis.mouseion.service.DecksService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -28,7 +31,9 @@ public class DecksController {
 
   private final DecksDtoMapper decksDtoMapper;
   private final DecksService decksService;
-  private final DecksPutPostDtoMapper decksPutPostDtoMapper;
+
+  private final DeckWordDtoMapper deckWordDtoMapper;
+  private final DeckWordService deckWordService;
 
   @GetMapping
   ResponseEntity<List<DecksDto>> getAllDecks() {
@@ -52,6 +57,13 @@ public class DecksController {
         decksDtoMapper.toDtoList(decksService.getDecksByName(name)), HttpStatus.OK);
   }
 
+  // Find all words in deck
+  @GetMapping("deck/{deckId}")
+  ResponseEntity<List<DeckWordDto>> getWordsInDeck(@PathVariable Integer deckId) {
+    return ResponseEntity.ok(
+        deckWordDtoMapper.toDtoList(deckWordService.getAllWordsInDeck(deckId)));
+  }
+
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   ResponseEntity<Object> createDeck(@RequestBody DecksPutPostDto decksPutPostDto) {
     Decks deck;
@@ -61,6 +73,18 @@ public class DecksController {
       return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<>(deck, HttpStatus.OK);
+  }
+
+  // Post (create) add word to deck
+  @PostMapping("{wordId}/deck/{deckId}")
+  ResponseEntity<DeckWordDto> addWordToDeck(
+      @PathVariable Integer wordId, @PathVariable Integer deckId) {
+
+    DeckWordDto deckWordDto = new DeckWordDto(deckId, wordId);
+
+    DeckWord deckWord = deckWordService.createDeckWordRequest(deckWordDto);
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(deckWordDtoMapper.toDto(deckWord));
   }
 
   @PutMapping(path = "/{id}")
@@ -84,5 +108,15 @@ public class DecksController {
       return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  // Delete an existing word from a deck
+  // Add functionality so this deletes a hanging word if it isn't part of any decks
+  @DeleteMapping("/{deckId}/words/{wordId}")
+  ResponseEntity<Void> removeWordFromDeck(
+      @PathVariable Integer deckId, @PathVariable Integer wordId) {
+
+    deckWordService.deleteWordFromDeck(deckId, wordId);
+    return ResponseEntity.noContent().build();
   }
 }
