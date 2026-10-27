@@ -47,10 +47,18 @@ public class DeckWordService {
 
   @Transactional
   public void deleteWordFromDeck(Integer deckId, Integer wordId) throws EntityNotFoundException {
+
+    decksRepository
+        .findById(deckId)
+        .orElseThrow(() -> new EntityNotFoundException("Deck not found."));
+    wordsRepository
+        .findById(wordId)
+        .orElseThrow(() -> new EntityNotFoundException("Word not found."));
+
     DeckWord deckWord =
         deckWordRepository
             .findDeckWord(deckId, wordId)
-            .orElseThrow(() -> new EntityNotFoundException("Relationship not found"));
+            .orElseThrow(() -> new EntityNotFoundException("This word is not in this deck."));
 
     deckWordRepository.delete(deckWord);
   }
@@ -62,11 +70,21 @@ public class DeckWordService {
         .orElseThrow(() -> new EntityNotFoundException("That word is not in this deck"));
   }
 
-  public List<DeckWord> getAllWordsInDeck(Integer deckId) {
+  public List<DeckWord> getAllWordsInDeck(Integer deckId) throws EntityNotFoundException {
+
+    decksRepository
+        .findById(deckId)
+        .orElseThrow(() -> new EntityNotFoundException("Deck not foud."));
+
     return deckWordRepository.findDeckWordByDeckId(deckId);
   }
 
   public List<DeckWord> getAllDecksWithWord(Integer wordId) {
+
+    wordsRepository
+        .findById(wordId)
+        .orElseThrow(() -> new EntityNotFoundException("Word not found"));
+
     return deckWordRepository.findDeckWordByWordId(wordId);
   }
 }
