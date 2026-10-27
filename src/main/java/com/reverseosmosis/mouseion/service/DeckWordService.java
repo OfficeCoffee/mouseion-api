@@ -61,6 +61,11 @@ public class DeckWordService {
             .orElseThrow(() -> new EntityNotFoundException("This word is not in this deck."));
 
     deckWordRepository.delete(deckWord);
+    deckWordRepository.flush();
+
+    if (deckWordRepository.findDeckWordByWordId(wordId).isEmpty()) {
+      wordsRepository.deleteById(wordId);
+    }
   }
 
   public DeckWord getWordByDeckId(Integer deckId, Integer wordId) throws EntityNotFoundException {

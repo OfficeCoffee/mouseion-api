@@ -95,24 +95,25 @@ public class DecksController {
     return new ResponseEntity<>(deck, HttpStatus.OK);
   }
 
-  @DeleteMapping(path = "/delete/{id}")
-  ResponseEntity<Object> deleteDeck(@PathVariable("id") Integer id) {
-
+  @DeleteMapping(path = "/delete/{deckId}")
+  ResponseEntity<Object> deleteDeck(@PathVariable("deckId") Integer deck_id) {
     try {
-      decksService.deleteDeck(id);
+      decksService.deleteDeck(deck_id);
     } catch (EntityNotFoundException e) {
-      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.NOT_FOUND);
     }
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
-  // Delete an existing word from a deck
-  // Add functionality so this deletes a hanging word if it isn't part of any decks
-  @DeleteMapping("/{deckId}/words/{wordId}")
-  ResponseEntity<Void> removeWordFromDeck(
-      @PathVariable Integer deckId, @PathVariable Integer wordId) {
+  @DeleteMapping(path = "/delete/{deckId}/word/{wordId}")
+  ResponseEntity<Object> deleteWordFromDeck(
+      @PathVariable("deckId") Integer deckId, @PathVariable("wordId") Integer wordId) {
+    try {
+      deckWordService.deleteWordFromDeck(deckId, wordId);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.NOT_FOUND);
+    }
 
-    deckWordService.deleteWordFromDeck(deckId, wordId);
-    return ResponseEntity.noContent().build();
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }
