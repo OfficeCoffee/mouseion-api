@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,6 +78,7 @@ public class WordsController {
         deckWordDtoMapper.toDtoList(deckWordService.getAllWordsInDeck(deckId)));
   }
 
+  // Post (create) add word to deck
   @PostMapping("{wordId}/deck/{deckId}")
   ResponseEntity<DeckWordDto> addWordToDeck(
       @PathVariable Integer wordId, @PathVariable Integer deckId) {
@@ -112,5 +114,15 @@ public class WordsController {
       return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<>(word, HttpStatus.OK);
+  }
+
+  // Delete an existing word from a deck
+  // Add functionality so this deletes a hanging word if it isn't part of any decks
+  @DeleteMapping("/{wordId}/deck/{deckId}")
+  ResponseEntity<Void> removeWordFromDeck(
+      @PathVariable Integer wordId, @PathVariable Integer deckId) {
+
+    deckWordService.deleteWordFromDeck(deckId, wordId);
+    return ResponseEntity.noContent().build();
   }
 }
