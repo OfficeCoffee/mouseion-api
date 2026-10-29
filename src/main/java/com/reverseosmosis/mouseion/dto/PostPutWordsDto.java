@@ -1,16 +1,7 @@
 package com.reverseosmosis.mouseion.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.Data;
-import lombok.Value;
 
 @Builder
-@Data
-@Value
-public class PostPutWordsDto {
-  String word;
-
-  String origin;
-
-  String definition;
-}
+public record PostPutWordsDto(@NotNull String word, String origin, @NotNull String definition) {}

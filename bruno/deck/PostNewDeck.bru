@@ -1,18 +1,18 @@
 meta {
   name: PostNewDeck
   type: http
-  seq: 4
+  seq: 5
 }
 
 post {
-  url: http://localhost:8080/mouseion/decks
+  url: http://localhost:8080/mouseion/decks/create
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "deckName": "Names of Flowers"
+    "deckName": "Test"
   }
 }
 

@@ -1,17 +1,13 @@
 meta {
-  name: PutDeckWord
+  name: GetAllRelationshipIdsInDeck
   type: http
-  seq: 5
+  seq: 2
 }
 
-put {
-  url: http://localhost:8080/mouseion/deckWord/1/1?newWordId=2
+get {
+  url: http://localhost:8080/mouseion/deckWord/deck/1
   body: none
   auth: inherit
-}
-
-params:query {
-  newWordId: 2
 }
 
 settings {

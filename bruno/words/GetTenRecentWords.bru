@@ -1,11 +1,11 @@
 meta {
-  name: DeleteDeckByID
+  name: GetTenRecentWords
   type: http
-  seq: 6
+  seq: 4
 }
 
-delete {
-  url: http://localhost:8080/mouseion/decks/delete/6
+get {
+  url: http://localhost:8080/mouseion/words/recent
   body: none
   auth: inherit
 }

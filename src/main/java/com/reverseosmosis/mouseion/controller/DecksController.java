@@ -1,10 +1,12 @@
 package com.reverseosmosis.mouseion.controller;
 
+import com.reverseosmosis.mouseion.dto.AddWordToDeckDto;
 import com.reverseosmosis.mouseion.dto.DecksDto;
 import com.reverseosmosis.mouseion.dto.DecksPutPostDto;
+import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
 import com.reverseosmosis.mouseion.mapper.DecksDtoMapper;
-import com.reverseosmosis.mouseion.mapper.DecksPutPostDtoMapper;
 import com.reverseosmosis.mouseion.model.Decks;
+import com.reverseosmosis.mouseion.service.DeckWordService;
 import com.reverseosmosis.mouseion.service.DecksService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -28,7 +30,9 @@ public class DecksController {
 
   private final DecksDtoMapper decksDtoMapper;
   private final DecksService decksService;
-  private final DecksPutPostDtoMapper decksPutPostDtoMapper;
+
+  private final DeckWordDtoMapper deckWordDtoMapper;
+  private final DeckWordService deckWordService;
 
   @GetMapping
   ResponseEntity<List<DecksDto>> getAllDecks() {
@@ -37,19 +41,35 @@ public class DecksController {
   }
 
   @GetMapping("/id/{id}")
-  ResponseEntity<DecksDto> getDeckById(@PathVariable Integer id) throws EntityNotFoundException {
+  ResponseEntity<?> getDeckById(@PathVariable Integer id) throws EntityNotFoundException {
+    try {
+      new ResponseEntity<>(decksDtoMapper.toDto(decksService.getDeckById(id)), HttpStatus.OK);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
     return new ResponseEntity<>(decksDtoMapper.toDto(decksService.getDeckById(id)), HttpStatus.OK);
   }
 
   @GetMapping("/name/{name}")
-  ResponseEntity<List<DecksDto>> getDecksByName(@PathVariable String name)
-      throws EntityNotFoundException {
+  ResponseEntity<?> getDecksByName(@PathVariable String name) throws EntityNotFoundException {
     return new ResponseEntity<>(
         decksDtoMapper.toDtoList(decksService.getDecksByName(name)), HttpStatus.OK);
   }
 
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  ResponseEntity<Object> createDeck(@RequestBody DecksPutPostDto decksPutPostDto) {
+  // Find all words in deck
+  @GetMapping(path = "{deckId}/words")
+  ResponseEntity<Object> getWordsInDeck(@PathVariable Integer deckId) {
+    try {
+      return new ResponseEntity<>(
+          deckWordDtoMapper.toWordInDeckDtoList(deckWordService.getAllWordsInDeck(deckId)),
+          HttpStatus.OK);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<?> createDeck(@RequestBody DecksPutPostDto decksPutPostDto) {
     Decks deck;
     try {
       deck = decksService.createDeck(decksPutPostDto);
@@ -57,6 +77,16 @@ public class DecksController {
       return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
     }
     return new ResponseEntity<>(deck, HttpStatus.OK);
+  }
+
+  @PostMapping(value = "/addWord", consumes = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<?> addWordToDeck(@RequestBody AddWordToDeckDto addWordToDeckDto) {
+    try {
+      decksService.addWordToDeck(addWordToDeckDto);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @PutMapping(path = "/{id}")
@@ -71,14 +101,25 @@ public class DecksController {
     return new ResponseEntity<>(deck, HttpStatus.OK);
   }
 
-  @DeleteMapping(path = "/delete/{id}")
-  ResponseEntity<Object> deleteDeck(@PathVariable("id") Integer id) {
-
+  @DeleteMapping(path = "/delete/{deckId}")
+  ResponseEntity<Object> deleteDeck(@PathVariable("deckId") Integer deck_id) {
     try {
-      decksService.deleteDeck(id);
+      decksService.deleteDeck(deck_id);
     } catch (EntityNotFoundException e) {
-      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.NOT_FOUND);
     }
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @DeleteMapping(path = "/delete/{deckId}/word/{wordId}")
+  ResponseEntity<Object> deleteWordFromDeck(
+      @PathVariable("deckId") Integer deckId, @PathVariable("wordId") Integer wordId) {
+    try {
+      deckWordService.deleteWordFromDeck(deckId, wordId);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.NOT_FOUND);
+    }
+
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }
