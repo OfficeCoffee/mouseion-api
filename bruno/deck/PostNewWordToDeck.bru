@@ -1,0 +1,26 @@
+meta {
+  name: PostNewWordToDeck
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8080/mouseion/decks/addWord
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "word": "Cool word",
+    "origin": "rahh",
+    "definition": "Def for cool word",
+    "deckId": 2
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}

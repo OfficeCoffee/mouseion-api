@@ -1,5 +1,6 @@
 package com.reverseosmosis.mouseion.controller;
 
+import com.reverseosmosis.mouseion.dto.AddWordToDeckDto;
 import com.reverseosmosis.mouseion.dto.DecksDto;
 import com.reverseosmosis.mouseion.dto.DecksPutPostDto;
 import com.reverseosmosis.mouseion.mapper.DeckWordDtoMapper;
@@ -67,8 +68,8 @@ public class DecksController {
     }
   }
 
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  ResponseEntity<Object> createDeck(@RequestBody DecksPutPostDto decksPutPostDto) {
+  @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<?> createDeck(@RequestBody DecksPutPostDto decksPutPostDto) {
     Decks deck;
     try {
       deck = decksService.createDeck(decksPutPostDto);
@@ -78,25 +79,15 @@ public class DecksController {
     return new ResponseEntity<>(deck, HttpStatus.OK);
   }
 
-  // @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  // ResponseEntity<Object> addWordToDeck(@RequestBody DecksPutPostDto decksPutPostDto) {
-
-  // }
-
-  // @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  // ResponseEntity<Object> addWordToDeck(@RequestBody )
-
-  // // Post (create) add word to deck
-  // @PostMapping("/{deckId}/word/{wordId}")
-  // ResponseEntity<DeckWordDto> addWordToDeck(
-  //     @PathVariable Integer deckId, @PathVariable Integer wordId) {
-
-  //   DeckWordDto deckWordDto = new DeckWordDto(deckId, wordId);
-
-  //   DeckWord deckWord = deckWordService.createDeckWordRequest(deckWordDto);
-
-  //   return ResponseEntity.status(HttpStatus.CREATED).body(deckWordDtoMapper.toDto(deckWord));
-  // }
+  @PostMapping(value = "/addWord", consumes = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<?> addWordToDeck(@RequestBody AddWordToDeckDto addWordToDeckDto) {
+    try {
+      decksService.addWordToDeck(addWordToDeckDto);
+    } catch (EntityNotFoundException e) {
+      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+    }
+    return new ResponseEntity<>(HttpStatus.CREATED);
+  }
 
   @PutMapping(path = "/{id}")
   ResponseEntity<Object> updateDeck(

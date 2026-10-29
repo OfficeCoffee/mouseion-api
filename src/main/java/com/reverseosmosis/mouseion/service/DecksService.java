@@ -1,9 +1,13 @@
 package com.reverseosmosis.mouseion.service;
 
+import com.reverseosmosis.mouseion.dto.AddWordToDeckDto;
+import com.reverseosmosis.mouseion.dto.DeckWordDto;
 import com.reverseosmosis.mouseion.dto.DecksPutPostDto;
+import com.reverseosmosis.mouseion.dto.PostPutWordsDto;
 import com.reverseosmosis.mouseion.mapper.DecksPutPostDtoMapper;
 import com.reverseosmosis.mouseion.model.DeckWord;
 import com.reverseosmosis.mouseion.model.Decks;
+import com.reverseosmosis.mouseion.model.Words;
 import com.reverseosmosis.mouseion.repository.DeckWordRepository;
 import com.reverseosmosis.mouseion.repository.DecksRepository;
 import com.reverseosmosis.mouseion.repository.WordsRepo;
@@ -21,7 +25,10 @@ public class DecksService {
   private final DecksRepository decksRepository;
   private final DecksPutPostDtoMapper decksPutPostDtoMapper;
 
+  private final DeckWordService deckWordService;
   private final DeckWordRepository deckWordRepository;
+
+  private final WordsService wordsService;
   private final WordsRepo wordsRepository;
 
   // GET all Decks
@@ -44,6 +51,18 @@ public class DecksService {
   // POST, Create new Deck
   public Decks createDeck(DecksPutPostDto decksPutPostDto) throws EntityNotFoundException {
     return decksRepository.saveAndFlush(decksPutPostDtoMapper.createEntity(decksPutPostDto));
+  }
+
+  // POST, Add new Word to Deck
+  public void addWordToDeck(AddWordToDeckDto addWordToDeckDto) throws EntityNotFoundException {
+
+    // Create the word
+    Words word = wordsService.createWord(new PostPutWordsDto(
+        addWordToDeckDto.word(), addWordToDeckDto.origin(), addWordToDeckDto.definition()));
+
+    // Add the word to the deck (create relationship)
+    deckWordService.createDeckWordRequest(
+        new DeckWordDto(addWordToDeckDto.deckId(), word.getWordId()));
   }
 
   // PUT, Update existing deck

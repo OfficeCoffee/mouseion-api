@@ -16,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,18 +71,6 @@ public class WordsController {
   ResponseEntity<List<DeckWordDto>> getWordsInDeck(@PathVariable Integer deckId) {
     return ResponseEntity.ok(
         deckWordDtoMapper.toDtoList(deckWordService.getAllWordsInDeck(deckId)));
-  }
-
-  // Post (Create) a new word
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  ResponseEntity<Object> submitWord(@RequestBody PostPutWordsDto postPutWordsDto) {
-    Words word;
-    try {
-      word = wordService.createWord(postPutWordsDto);
-    } catch (EntityNotFoundException e) {
-      return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
-    }
-    return new ResponseEntity<>(word, HttpStatus.OK);
   }
 
   // Put (Update) an existing word
