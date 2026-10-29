@@ -12,8 +12,7 @@
 **DeckWord**
 
 - Get all decks that contain words
-- Get all words in deck
-- Get words by deck ID
+- Get all reltionship id pairs in deck
 
 **Word**
 
@@ -27,11 +26,7 @@
 **Deck**
 
 - Create new deck
-- Create word in deck (WIP)
-
-**Word**
-
-- Create new word
+- Create word in deck
 
 ### PUT methods
 
