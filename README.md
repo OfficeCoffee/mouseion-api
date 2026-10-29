@@ -16,6 +16,8 @@ Switch to the develop branch to run the current production
 - Navigate to the db directory, which contains the `init.sql` and `docker-compose.yml`, files using `cd`.
 - Run `sudo docker compose up -d`. This command starts the database docker image defined in the `docker-compose.yml` in detached mode.
 
+If you want to setup dbeaver with the database, refer to this documentation: https://github.com/OfficeCoffee/mouseion-database/blob/main/database/table_initialization/README.md
+
 **Run the Service**
 
 - Open Mouseion in your code editer in the outer most directory
