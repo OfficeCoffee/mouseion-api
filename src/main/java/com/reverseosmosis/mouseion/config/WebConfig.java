@@ -7,10 +7,13 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-//@EnableWebMvc
-public class WebConfig implements WebMvcConfigurer {// Has config that effects date and time? -> 
+public class WebConfig implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(@NonNull CorsRegistry registry) {
-    registry.addMapping("/**");
+    registry
+        .addMapping("/**")
+        .allowedOriginPatterns("http://localhost:*")
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        .allowedHeaders("*");
   }
 }
